@@ -1,0 +1,56 @@
+{
+	"version": "2.0.0",
+	"inputs": [
+		{
+			"id": "projectFile",
+			"description": "The name of the '*.project.json' file",
+			"default": "development",
+			"type": "promptString"
+		}
+	],
+	"tasks": [
+		{
+			"label": "Wally: Build Project Packages",
+			"detail": "Build the required wally packages for a module",
+			"type": "shell",
+			"command": "wally",
+			"args": [ "install" ],
+			"group": {
+				"kind": "build"
+			},
+		},
+
+		{
+			"label": "Selene: Execute Linter",
+			"detail": "Run the selene linter on all projecs under the RIT repository",
+			"type": "shell",
+			"command": "selene",
+			"args": [ "." ],
+			"group": {
+				"kind": "build"
+			},
+		},
+
+		{
+			"label": "Rojo: Build Binary",
+			"detail": "Build a roblox binary",
+			"type": "shell",
+			"command": "rojo",
+			"args": [ "build", "${input:projectFile}.project.json", "-o", "latest.rbxl" ],
+			"group": {
+				"kind": "build"
+			},
+		},
+
+		{
+			"label": "Rojo: Host Roblox Project",
+			"detail": "Host a Rojo server for a roblox project",
+			"type": "shell",
+			"command": "rojo",
+			"args": [ "serve", "${input:projectFile}.project.json" ],
+			"group": {
+				"kind": "build"
+			},
+		}
+	]
+}

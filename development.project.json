@@ -1,0 +1,50 @@
+{
+	"name": "CameraProfiler",
+	"tree": {
+		"$className": "DataModel",
+
+		"Players": {
+			"$className": "Players",
+			"$properties": {
+				"CharacterAutoLoads": false
+			}
+		},
+
+		"ReplicatedStorage": {
+			"$ignoreUnknownInstances": true,
+			"$className": "ReplicatedStorage",
+			
+			"Packages": {
+				"$path": "Packages",
+				
+				"CameraProfiler": {
+					"$path": "Source"
+				}
+			},
+
+			"UnitTests": {
+				"$path": "Build/Tests"
+			},
+
+			"DevPackages": {
+				"$className": "Folder",
+				"$path": "DevPackages"
+			}
+		},
+
+		"StarterGui": {
+			"$className": "StarterGui",
+			"$ignoreUnknownInstances": true,
+			"$path": "Build/Assets/StarterGui"
+		},
+
+		"ReplicatedFirst": {
+			"$className": "ReplicatedFirst",
+			"$ignoreUnknownInstances": true,
+			
+			"Source": {
+				"$path": "Build/Source"
+			}
+		}
+	}
+}

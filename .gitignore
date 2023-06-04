@@ -1,0 +1,7 @@
+*.rbxl
+*.lock
+
+Packages
+DevPackages
+
+Development.meta.json

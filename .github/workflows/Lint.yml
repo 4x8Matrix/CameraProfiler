@@ -1,0 +1,20 @@
+name: Linter
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ok-nick/setup-aftman@v0.3.0
+      env:
+        GH_TOKEN: ${{ github.token }}
+    - name: Run Selene Linter
+      run: selene .
