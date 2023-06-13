@@ -8,9 +8,9 @@ local Signal = require(script.Parent.Signal)
 local Types = require(script.Types)
 
 -- // Module
-local CameraProfiler = { }
+local CameraProfiler = {}
 
-CameraProfiler.Interface = { }
+CameraProfiler.Interface = {}
 
 CameraProfiler.Interface.Camera = require(script.Camera)
 
@@ -49,9 +49,11 @@ function CameraProfiler.Interface:SetActiveCamera(cameraName: string): ()
 	local cameraObject = CameraProfiler.Interface.Camera.get(cameraName)
 	local cameraReference = workspace.CurrentCamera
 
-	assert(cameraObject, `Failed to 'get' {cameraName} camera!`)
+	assert(cameraObject, `Failed to call ':GetActiveCamera' for the {cameraName} camera!`)
 
 	if CameraProfiler.Active then
+		assert(CameraProfiler.Active.Name == cameraName, `Attempted to set {cameraName} twice!`)
+
 		CameraProfiler.Interface.CameraDeactivated:Fire(CameraProfiler.Active.Name)
 		CameraProfiler.Active:InvokeLifecycleMethod("OnDeactivated", cameraReference)
 	end
