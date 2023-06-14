@@ -132,6 +132,10 @@ function Camera.Interface.wrap(name, cameraInstance)
 
 	self.Instance.Name = `Camera<"{self.Name}">`
 	self.Instance.Parent = workspace
+	
+	if workspace.CurrentCamera == self.Instance then
+		self:InvokeLifecycleMethod("OnActivated", self.Instance)
+	end
 
 	assert(not Camera.Instances[name], `Expected {name} to be unique, are you sure this isn't a duplicate Camera?`)
 
