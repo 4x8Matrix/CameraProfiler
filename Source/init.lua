@@ -52,16 +52,18 @@ function CameraProfiler.Interface:SetActiveCamera(cameraName: string): ()
 	assert(cameraObject, `Failed to call ':GetActiveCamera' for the {cameraName} camera!`)
 
 	if CameraProfiler.Active then
-		assert(CameraProfiler.Active.Name == cameraName, `Attempted to set {cameraName} twice!`)
+		assert(CameraProfiler.Active.Name ~= cameraName, `Attempted to set {cameraName} twice!`)
 
 		CameraProfiler.Interface.CameraDeactivated:Fire(CameraProfiler.Active.Name)
 		CameraProfiler.Active:InvokeLifecycleMethod("OnDeactivated", cameraReference)
 	end
 
-	workspace.CurrentCamera = cameraObject.Instance
-
 	CameraProfiler.Active = cameraObject
-	cameraReference.Parent = workspace
+	cameraObject.Instance.Parent = workspace
+	
+	workspace.CurrentCamera = cameraObject.Instance
+	
+	cameraReference.Parent = nil
 
 	CameraProfiler.Interface.CameraActivated:Fire(cameraObject.Name)
 	cameraObject:InvokeLifecycleMethod("OnActivated", cameraObject.Instance)
