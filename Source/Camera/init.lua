@@ -93,7 +93,7 @@ end
 	```
 ]]
 function Camera.Prototype:ToString()
-	return `{Camera.Type}<"{self.name}">`
+	return `{Camera.Type}<"{self.Name}">`
 end
 
 -- // Module functions
