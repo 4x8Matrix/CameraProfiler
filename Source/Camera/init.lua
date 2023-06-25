@@ -1,12 +1,12 @@
 -- // Module
-local Camera = { }
+local Camera = {}
 
 Camera.Type = "Camera"
 
-Camera.Internal = { }
-Camera.Instances = { }
-Camera.Interface = { }
-Camera.Prototype = { }
+Camera.Internal = {}
+Camera.Instances = {}
+Camera.Interface = {}
+Camera.Prototype = {}
 
 -- // Prototype lifecycles
 --[[
@@ -115,24 +115,29 @@ end
 ]]
 function Camera.Interface.wrap(name, cameraInstance)
 	assert(type(name) == "string", `Expected parameter #1 'name' to be a string, got {type(name)}`)
-	assert(type(cameraInstance) == "userdata", `Expected parameter #2 'cameraInstance' to be a userdata, got {type(cameraInstance)}`)
-	assert(cameraInstance:IsA("Camera"), `Expected parameter #2 'cameraInstance' to be a camera instance, got {cameraInstance.ClassName}`)
+	assert(
+		type(cameraInstance) == "userdata",
+		`Expected parameter #2 'cameraInstance' to be a userdata, got {type(cameraInstance)}`
+	)
+	assert(
+		cameraInstance:IsA("Camera"),
+		`Expected parameter #2 'cameraInstance' to be a camera instance, got {cameraInstance.ClassName}`
+	)
 
 	local self = setmetatable({
 		Name = name,
-		Instance = cameraInstance
+		Instance = cameraInstance,
 	}, {
 		__index = Camera.Prototype,
 		__type = Camera.Type,
 
 		__tostring = function(object)
 			return object:ToString()
-		end
+		end,
 	})
 
 	self.Instance.Name = `Camera<"{self.Name}">`
-	self.Instance.Parent = workspace
-	
+
 	if workspace.CurrentCamera == self.Instance then
 		self:InvokeLifecycleMethod("OnActivated", self.Instance)
 	end
